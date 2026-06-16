@@ -3,17 +3,27 @@
   <head>
     <title>MoveNet Demo</title>
   </head>
+  <style>
+    #contenedor {
+      position: relative;
+      width: 640px;
+      height: 480px;
+    }
+
+    #video,
+    #canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 640px;
+      height: 480px;
+    }
+  </style>
   <body>
-    <style>
-      video,
-      canvas {
-        position: absolute;
-        top: 0;
-        left: 0;
-      }
-    </style>
-    <video id="video" autoplay playsinline width="640" height="480"></video>
-    <canvas id="canvas"></canvas>
+    <div id="contenedor">
+      <video id="video" autoplay playsinline></video>
+      <canvas id="canvas"></canvas>
+    </div>
 
     <script type="module" src="app.js"></script>
   </body>
