@@ -48,13 +48,24 @@ async function iniciar() {
       console.log(x, y, score);
     }
 
+    const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
-    const xPixel = x * video.videoWidth;
-    const yPixel = y * video.videoHeight;
 
-    ctx.beginPath();
-    ctx.arc(xPixel, yPixel, 5, 0, Math.PI * 2);
-    ctx.fill();
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (const [y, x, score] of keypoints) {
+      if (score > 0.3) {
+        const xPixel = x * video.videoWidth;
+        const yPixel = y * video.videoHeight;
+
+        ctx.beginPath();
+        ctx.arc(xPixel, yPixel, 5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
 
     console.log(keypoints);
 
