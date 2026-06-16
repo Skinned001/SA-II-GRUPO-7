@@ -42,6 +42,8 @@ async function iniciar() {
     const keypoints = datos[0][0];
 
     const ctx = canvas.getContext("2d");
+    const xPixel = x * video.videoWidth;
+    const yPixel = y * video.videoHeight;
 
     ctx.beginPath();
     ctx.arc(xPixel, yPixel, 5, 0, Math.PI * 2);
