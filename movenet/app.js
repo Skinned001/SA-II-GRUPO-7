@@ -38,8 +38,15 @@ async function iniciar() {
     const prediction = await model.executeAsync(input);
 
     const datos = await prediction.array();
-
     const keypoints = datos[0][0];
+
+    for (const punto of keypoints) {
+      const y = punto[0];
+      const x = punto[1];
+      const score = punto[2];
+
+      console.log(x, y, score);
+    }
 
     const ctx = canvas.getContext("2d");
     const xPixel = x * video.videoWidth;
