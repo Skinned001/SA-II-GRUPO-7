@@ -31,7 +31,7 @@ async function iniciar() {
 
   console.log("Cámara iniciada");
 
-  setInterval(async () => {
+  async function detectar() {
     if (video.videoWidth === 0 || video.videoHeight === 0) {
       return;
     }
@@ -41,18 +41,18 @@ async function iniciar() {
 
     const input = resized.cast("int32").expandDims(0);
 
-    const prediction = await model.executeAsync(input);
+    const prediction = model.execute(input);
 
     const datos = await prediction.array();
     const keypoints = datos[0][0];
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     for (const punto of keypoints) {
       const y = punto[0];
       const x = punto[1];
       const score = punto[2];
 
-      console.log(x, y, score);
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // console.log(x, y, score);
     }
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
@@ -68,16 +68,19 @@ async function iniciar() {
       }
     }
 
-    console.log(keypoints);
+    // console.log(keypoints);
 
-    console.log(datos);
+    // console.log(datos);
 
     prediction.dispose();
 
     tensor.dispose();
     resized.dispose();
     input.dispose();
-  }, 1000);
+    requestAnimationFrame(detectar);
+  }
+
+  detectar();
 }
 
 iniciar();
