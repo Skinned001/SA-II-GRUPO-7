@@ -24,21 +24,33 @@ async function iniciar() {
   await video.play();
 
   console.log("Cámara iniciada");
+
+  setInterval(async () => {
+    if (video.videoWidth === 0 || video.videoHeight === 0) {
+      return;
+    }
+    const tensor = tf.browser.fromPixels(video);
+
+    const resized = tf.image.resizeBilinear(tensor, [192, 192]);
+
+    const input = resized.cast("int32").expandDims(0);
+
+    const prediction = await model.executeAsync(input);
+
+    const datos = await prediction.array();
+
+    const keypoints = datos[0][0];
+
+    console.log(keypoints);
+
+    console.log(datos);
+
+    prediction.dispose();
+
+    tensor.dispose();
+    resized.dispose();
+    input.dispose();
+  }, 1000);
 }
-setInterval(async () => {
-  const tensor = tf.browser.fromPixels(video);
-
-  const resized = tf.image.resizeBilinear(tensor, [192, 192]);
-
-  const input = resized.expandDims(0);
-
-  const prediction = await model.executeAsync(input);
-
-  console.log(prediction);
-
-  tensor.dispose();
-  resized.dispose();
-  input.dispose();
-}, 1000);
 
 iniciar();
