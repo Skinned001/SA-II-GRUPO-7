@@ -22,6 +22,12 @@ async function iniciar() {
   video.srcObject = stream;
 
   await video.play();
+  const canvas = document.getElementById("canvas");
+
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+
+  const ctx = canvas.getContext("2d");
 
   console.log("Cámara iniciada");
 
@@ -46,15 +52,9 @@ async function iniciar() {
       const score = punto[2];
 
       console.log(x, y, score);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
-
-    const canvas = document.getElementById("canvas");
-    const ctx = canvas.getContext("2d");
-
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
     for (const [y, x, score] of keypoints) {
       if (score > 0.3) {
@@ -62,7 +62,8 @@ async function iniciar() {
         const yPixel = y * video.videoHeight;
 
         ctx.beginPath();
-        ctx.arc(xPixel, yPixel, 5, 0, Math.PI * 2);
+        ctx.arc(xPixel, yPixel, 10, 0, Math.PI * 2);
+        ctx.fillStyle = "red";
         ctx.fill();
       }
     }
