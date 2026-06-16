@@ -14,9 +14,12 @@ async function iniciar() {
     video.onloadedmetadata = resolve;
   });
 
-  const detector = await poseDetection.createDetector(
-    poseDetection.SupportedModels.MoveNet,
-  );
+  console.log(poseDetection);
+  const model = poseDetection.SupportedModels.MoveNet;
+
+  console.log(model);
+
+  const detector = await poseDetection.createDetector(model);
 
   console.log("MoveNet cargado");
 

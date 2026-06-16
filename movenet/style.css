@@ -1,0 +1,15 @@
+.container {
+  position: relative;
+  width: 640px;
+}
+
+video,
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+h1 {
+  margin-bottom: 500px;
+}
