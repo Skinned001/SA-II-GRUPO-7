@@ -1,8 +1,9 @@
+
 <!doctype html>
 <html>
-  <head>
-    <title>PoseNet</title>
-  </head>
+<head>
+  <title>PoseNet</title>
+
   <style>
     video,
     canvas {
@@ -11,18 +12,37 @@
       left: 0;
     }
 
-    #toggle,
-    #fps {
-      position: relative;
+    #toggle {
+      position: absolute;
+      top: 500px;
+      left: 10px;
       z-index: 10;
     }
-  </style>
-  <body>
-    <video id="video" autoplay playsinline></video>
-    <canvas id="canvas"></canvas>
-    <button id="toggle">Ocultar puntos</button>
-    <p id="fps">FPS: 0</p>
 
-    <script type="module" src="app.js"></script>
-  </body>
+    #fps {
+      position: absolute;
+      top: 530px;
+      left: 10px;
+      z-index: 10;
+      background: white;
+      padding: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <video id="video" autoplay playsinline></video>
+
+  <canvas id="canvas"></canvas>
+
+  <button id="toggle">
+    Ocultar puntos
+  </button>
+
+  <p id="fps">
+    FPS: 0
+  </p>
+
+  <script type="module" src="app.js"></script>
+</body>
 </html>
