@@ -30,11 +30,31 @@ async function iniciar() {
   const ctx = canvas.getContext("2d");
 
   console.log("Cámara iniciada");
+  let mostrarPuntos = true;
+
+  const boton = document.getElementById("toggle");
+
+  boton.addEventListener("click", () => {
+    mostrarPuntos = !mostrarPuntos;
+
+    boton.textContent = mostrarPuntos ? "Ocultar puntos" : "Mostrar puntos";
+  });
+  const fpsTexto = document.getElementById("fps");
 
   async function detectar() {
     if (video.videoWidth === 0 || video.videoHeight === 0) {
       return;
     }
+
+    const inicio = performance.now();
+
+    // ejecutar MoveNet
+
+    const fin = performance.now();
+    const fps = 1000 / (fin - inicio);
+
+    fpsTexto.textContent = `FPS: ${fps.toFixed(1)}`;
+
     const tensor = tf.browser.fromPixels(video);
 
     const resized = tf.image.resizeBilinear(tensor, [192, 192]);
@@ -54,20 +74,20 @@ async function iniciar() {
 
       // console.log(x, y, score);
     }
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-    for (const [y, x, score] of keypoints) {
-      if (score > 0.3) {
-        const xPixel = x * video.videoWidth;
-        const yPixel = y * video.videoHeight;
+    if (mostrarPuntos) {
+      for (const [y, x, score] of keypoints) {
+        if (score > 0.3) {
+          const xPixel = x * video.videoWidth;
+          const yPixel = y * video.videoHeight;
 
-        ctx.beginPath();
-        ctx.arc(xPixel, yPixel, 10, 0, Math.PI * 2);
-        ctx.fillStyle = "red";
-        ctx.fill();
+          ctx.beginPath();
+          ctx.arc(xPixel, yPixel, 10, 0, Math.PI * 2);
+          ctx.fillStyle = "red";
+          ctx.fill();
+        }
       }
     }
-
     // console.log(keypoints);
 
     // console.log(datos);
