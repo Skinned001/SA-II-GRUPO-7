@@ -26,6 +26,13 @@ async function iniciar() {
 
   canvas.width = video.videoWidth;
   canvas.height = video.videoHeight;
+  canvas.style.width = video.videoWidth + "px";
+  canvas.style.height = video.videoHeight + "px";
+
+  console.log("Video:", video.videoWidth, video.videoHeight);
+  console.log("Canvas:", canvas.width, canvas.height);
+  ctx.fillStyle = "red";
+  ctx.fillRect(0, 0, 50, 50);
 
   const ctx = canvas.getContext("2d");
 
