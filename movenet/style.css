@@ -1,41 +1,9 @@
-body {
-  margin: 0;
-  background: #0f172a;
-  color: white;
-  font-family: Arial, sans-serif;
-  overflow: hidden;
-}
-
-.panel {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  z-index: 1000;
-
-  background: rgba(0, 0, 0, 0.7);
-
-  padding: 20px;
-
-  border-radius: 10px;
-
-  width: 300px;
-}
-
-video,
-canvas {
+#canvas {
   position: absolute;
   top: 0;
-  left: 350px;
-}
-
-button {
-  margin-top: 10px;
-  padding: 10px 15px;
-  cursor: pointer;
-}
-
-#fps {
-  margin-top: 10px;
-  font-size: 18px;
-  font-weight: bold;
+  left: 0;
+  width: 100% !important;  /* Importante para que ocupe todo el contenedor */
+  height: 100% !important; /* Importante para que ocupe todo el contenedor */
+  display: block;
+  pointer-events: none;
 }

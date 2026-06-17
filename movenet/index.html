@@ -1,3 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MoveNet - Corregido</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #1a1a2e;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .panel {
+      background: rgba(26, 26, 46, 0.9);
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      width: 100%;
+      max-width: 800px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 10;
+    }
+
+    .panel h2 {
+      color: #00d4ff;
+      margin-bottom: 5px;
+    }
+
+    .panel p {
+      color: #aaa;
+      font-size: 14px;
+    }
+
+    #fps {
+      color: #00ff88;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    #toggle {
+      background: #00d4ff;
+      color: #1a1a2e;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+
+    #toggle:hover {
+      background: #00b8d4;
+      transform: scale(1.05);
+    }
+
+    #toggle.oculto {
+      background: #ff6b6b;
+    }
+
+    #contenedor-video {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      background: #000;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    #video {
+      display: block;
+      width: 100%;
+      height: auto;
+      background: #000;
+    }
+
+    #canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100% !important;
+      height: 100% !important;
+      display: block !important;
+      pointer-events: none;
+      z-index: 10;
+      border: 2px solid #00ff00;
+    }
+
+    @media (max-width: 600px) {
+      .panel {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      #contenedor-video {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
 <body>
   <div class="panel">
     <div id="info">
@@ -9,8 +128,12 @@
 
     <div id="fps">FPS: 0</div>
   </div>
-  <video id="video" autoplay playsinline></video>
-  <canvas id="canvas"></canvas>
+
+  <div id="contenedor-video">
+    <video id="video" autoplay playsinline></video>
+    <canvas id="canvas"></canvas>
+  </div>
 
   <script type="module" src="app.js"></script>
 </body>
+</html>
