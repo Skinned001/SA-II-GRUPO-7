@@ -31,10 +31,9 @@ async function iniciar() {
 
   console.log("Video:", video.videoWidth, video.videoHeight);
   console.log("Canvas:", canvas.width, canvas.height);
+  const ctx = canvas.getContext("2d");
   ctx.fillStyle = "red";
   ctx.fillRect(0, 0, 50, 50);
-
-  const ctx = canvas.getContext("2d");
 
   let mostrarPuntos = true;
   let ultimoTiempo = performance.now();
@@ -70,6 +69,7 @@ async function iniciar() {
       }
     }
 
+    console.log(pose.keypoints);
     requestAnimationFrame(detectar);
   }
 
