@@ -22,38 +22,48 @@ async function iniciar() {
   await video.play();
 
   const canvas = document.getElementById("canvas");
+  const FPS = document.getElementById("fps");
 
   canvas.width = video.videoWidth;
   canvas.height = video.videoHeight;
 
   const ctx = canvas.getContext("2d");
+
+  let mostrarPuntos = true;
+  let ultimoTiempo = performance.now();
+
+  const boton = document.getElementById("toggle");
+
+  boton.addEventListener("click", () => {
+    mostrarPuntos = !mostrarPuntos;
+
+    boton.textContent = mostrarPuntos ? "Ocultar puntos" : "Mostrar puntos";
+  });
+
   async function detectar() {
+    const inicio = performance.now();
+
     const pose = await net.estimateSinglePose(video);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (const punto of pose.keypoints) {
-      if (punto.score > 0.3) {
-        ctx.beginPath();
 
-        ctx.arc(punto.position.x, punto.position.y, 8, 0, Math.PI * 2);
+    const fin = performance.now();
+    const fps = 1000 / (fin - inicio);
 
-        ctx.fillStyle = "blue";
-        ctx.fill();
-      }
-    }
+    FPS.textContent = `FPS: ${fps.toFixed(1)}`;
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    for (const punto of pose.keypoints) {
-      if (punto.score > 0.3) {
-        ctx.beginPath();
-
-        ctx.arc(punto.position.x, punto.position.y, 8, 0, Math.PI * 2);
-
-        ctx.fillStyle = "blue";
-        ctx.fill();
+    if (mostrarPuntos) {
+      for (const punto of pose.keypoints) {
+        if (punto.score > 0.3) {
+          ctx.beginPath();
+          ctx.arc(punto.position.x, punto.position.y, 8, 0, Math.PI * 2);
+          ctx.fillStyle = "blue";
+          ctx.fill();
+        }
       }
     }
+
     requestAnimationFrame(detectar);
-    console.log(pose.keypoints);
   }
 
   detectar();
