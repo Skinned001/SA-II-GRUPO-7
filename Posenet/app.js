@@ -40,7 +40,20 @@ async function iniciar() {
         ctx.fill();
       }
     }
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (const punto of pose.keypoints) {
+      if (punto.score > 0.3) {
+        ctx.beginPath();
+
+        ctx.arc(punto.position.x, punto.position.y, 8, 0, Math.PI * 2);
+
+        ctx.fillStyle = "blue";
+        ctx.fill();
+      }
+    }
     requestAnimationFrame(detectar);
+    console.log(pose.keypoints);
   }
 
   detectar();
